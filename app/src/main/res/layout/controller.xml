@@ -1,21 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".FlightActivity">
 
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/line1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/line2"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <TextView
+            android:id="@+id/rudder_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="0"/>
+        <SeekBar
+            android:id="@+id/rudder_bar"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:max="100"
+            android:min="-100" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Rudder"
+            android:textColor="@android:color/background_dark"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/line1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/line2">
+        <TextView
+            android:id="@+id/throttle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="0"/>
+        <SeekBar
+            android:id="@+id/throttle_bar"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:max="100"
+            android:min="0"
+            android:rotation="270" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Throttle"
+            android:rotation="270"
+            android:textColor="@android:color/background_dark"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/line1"
+        app:layout_constraintRight_toRightOf="@id/line2"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </LinearLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/line2"
+        android:id="@+id/line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent ="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/line3"
+        android:id="@+id/line2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -16,23 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-/*        connect_btn.setOnClickListener() {
-
-            val parent = findViewById(R.id.server_list) as LinearLayout
-            val b = Button(this)
-            b.text = enter_text.text
-            enter_text.setText("")
-            b.setOnClickListener(){
-                enter_text.setText(b.text)
-            }
-            parent.addView(b)
-        }*/
-
         connect_btn.setOnClickListener(){
             // connect to url
             val url = enter_text.text
             //connect
-
             val intent = Intent(this, FlightActivity::class.java)
             startActivity(intent)
         }
