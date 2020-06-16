@@ -7,19 +7,6 @@
     android:orientation="vertical"
     android:id="@+id/test">
 
-<!--    <com.jackandphantom.joystickview.JoyStickView
-        android:duplicateParentState="true"
-        android:id="@+id/joystick"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        app:outerCircleBorderColor="#fff"
-        app:innerCircleColor="@android:color/holo_blue_dark"
-        app:outerCircleBorderWidth="5"
-        app:shadowRadius="15"
-        app:shadowColor="#000"
-        app:outerCircleColor="@android:color/darker_gray"
-        android:layout_alignParentBottom="true" />-->
-
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystick"
         xmlns:custom="http://schemas.android.com/apk/res-auto"

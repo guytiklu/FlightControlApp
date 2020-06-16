@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import io.github.controlwear.virtual.joystick.android.JoystickView
 import kotlinx.android.synthetic.main.controller.*
 import kotlinx.android.synthetic.main.joystick.*
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -68,22 +72,11 @@ class Flight2Activity : AppCompatActivity() {
 
     private fun setJoystickListeners() {
 
-/*        joystick.setOnTouchListener { v, event ->
-            val action = event.action
-            when (action) {
-                MotionEvent.ACTION_UP -> {
-                    v.performClick()
-                    println("up")
-                }
-            }
-            false
-        }*/
-
-        joystick.setOnMoveListener(JoystickView.OnMoveListener(){angle: Int, strength: Int ->
+        joystick.setOnMoveListener(JoystickView.OnMoveListener() { angle: Int, strength: Int ->
             val length = strength;
-            val x = length * cos(Math.toRadians(angle*1.0))
-            val y = length * sin(Math.toRadians(angle*1.0))
-            if(changedEnough(x.toInt(),aileron) || changedEnough(y.toInt(),elevator)) {
+            val x = length * cos(Math.toRadians(angle * 1.0))
+            val y = length * sin(Math.toRadians(angle * 1.0))
+            if (changedEnough(x.toInt(), aileron) || changedEnough(y.toInt(), elevator)) {
                 aileron = x.toInt();
                 elevator = y.toInt();
                 send();
@@ -102,10 +95,15 @@ class Flight2Activity : AppCompatActivity() {
     private fun send() {
         println("throt:$throttle, rud:$rudder ailer:$aileron elev:$elevator")
         //div by 100 and send to our server
-        val commandBody = Command(aileron/100.0,rudder/100.0,elevator/100.0,throttle/100.0)
-        val url = "@@@@@put url here@@@@@"
-    }
-
-    class Command(aileron:Double,rudder:Double,elevator:Double,throttle:Double){
+        val command =
+            Command(aileron / 100.0, rudder / 100.0, elevator / 100.0, throttle / 100.0)
+        /*val url = "@@@@@put url here@@@@@"
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(FlyService::class.java)
+        val call = service.sendCommand(command)*/
     }
 }
+
