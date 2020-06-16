@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.GsonBuilder
 import io.github.controlwear.virtual.joystick.android.JoystickView
 import kotlinx.android.synthetic.main.controller.*
 import kotlinx.android.synthetic.main.joystick.*
-import retrofit2.Callback
-import retrofit2.Retrofit
+import okhttp3.ResponseBody
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import kotlin.math.cos
 import kotlin.math.sin
 
 class Flight2Activity : AppCompatActivity() {
+    var url="http://10.0.2.2:12345";
     var throttle = 0;
     var rudder = 0;
     var aileron = 0;
@@ -24,8 +25,10 @@ class Flight2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flight2)
 
+        url = intent.getStringExtra("url").toString()
         setBarListeners()
         setJoystickListeners()
+        getImgLoop()
     }
 
     private fun setBarListeners() {
@@ -97,13 +100,34 @@ class Flight2Activity : AppCompatActivity() {
         //div by 100 and send to our server
         val command =
             Command(aileron / 100.0, rudder / 100.0, elevator / 100.0, throttle / 100.0)
-        /*val url = "@@@@@put url here@@@@@"
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
         val retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(url.toString())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-        val service = retrofit.create(FlyService::class.java)
-        val call = service.sendCommand(command)*/
+        val api = retrofit.create(FlyService::class.java)
+        val body = api.sendCommand(command).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() !in 400..598) { // we got a valid code
+
+                } else { // Server returned error code
+                    val str = "Server Error: " + response.code().toString() + ", " + response.message()
+                    println(str)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(applicationContext,"Server Failure",Toast.LENGTH_SHORT).show()
+                println(t.message)
+            }
+        })
+    }
+
+    private fun getImgLoop(){
+        // get images from server
     }
 }
 

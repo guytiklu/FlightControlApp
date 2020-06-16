@@ -1,15 +1,14 @@
 package com.example.myapplication
 
-import android.telecom.Call
+import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface FlyService {
-    @GET("screenshot")
-    fun getScreenshot() :retrofit2.Call<String>
+    @GET("/screenshot")
+    fun getScreenshot() :retrofit2.Call<ResponseBody>
 
-    @POST("api/command")
-    fun sendCommand(@Body data:Command)
+    @POST("/api/command")
+    fun sendCommand(@Body data:Command):retrofit2.Call<ResponseBody>
 }
