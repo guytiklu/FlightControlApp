@@ -3,13 +3,10 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
+import android.view.MotionEvent
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.joystick.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +17,9 @@ class MainActivity : AppCompatActivity() {
             // connect to url
             val url = enter_text.text
             //connect
-            val intent = Intent(this, FlightActivity::class.java)
+            val intent = Intent(this, Flight2Activity::class.java)
             startActivity(intent)
         }
-
     }
 
 }
