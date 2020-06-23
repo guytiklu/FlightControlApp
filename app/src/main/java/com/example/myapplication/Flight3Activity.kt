@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.PowerManager
 import android.util.Log
 import android.widget.SeekBar
 import android.widget.Toast
@@ -27,14 +29,27 @@ class Flight3Activity : AppCompatActivity() {
     var rudder = 0;
     var aileron = 0;
     var elevator = 0;
+    var screenOn = true;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flight3)
 
+        screenOn = true
         url = intent.getStringExtra("url").toString()
         setBarListeners()
         setJoystickListeners()
+        getImgLoop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        screenOn = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        screenOn = true
         getImgLoop()
     }
 
@@ -146,7 +161,7 @@ class Flight3Activity : AppCompatActivity() {
         val api = retrofit.create(FlyService::class.java)
         // Getting the picture
         CoroutineScope(Dispatchers.IO).launch {
-            while (true) {
+            while (screenOn) {
                 delay(250)
                 val body = api.getScreenshot().enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(

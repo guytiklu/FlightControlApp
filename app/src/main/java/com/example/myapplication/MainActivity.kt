@@ -32,51 +32,43 @@ class MainActivity : AppCompatActivity() {
             adressAndTimeDatabase::class.java,
             "url Database"
         ).build()
-        createButtons(db)
+        createButtonsListeners(db)
         readFromDataBase(db)
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createButtons(database: adressAndTimeDatabase) {
-        val button1 = findViewById(R.id.btn1) as Button
-        button1.setOnClickListener {
-            if (button1.text.equals("1")) {
+    fun createButtonsListeners(database: adressAndTimeDatabase) {
+        btn1.setOnClickListener {
+            if (btn1.text.equals("1")) {
                 return@setOnClickListener
             }
-            enter_text.setText(button1.text.toString())
+            enter_text.setText(btn1.text.toString())
         }
-        val button2 = findViewById(R.id.btn2) as Button
-        button2.setOnClickListener {
-            if (button2.text.equals("2")) {
+        btn2.setOnClickListener {
+            if (btn2.text.equals("2")) {
                 return@setOnClickListener
             }
-            enter_text.setText(button2.text.toString())
+            enter_text.setText(btn2.text.toString())
         }
-        val button3 = findViewById(R.id.btn3) as Button
-        button3.setOnClickListener {
-            if (button3.text.equals("3")) {
+        btn3.setOnClickListener {
+            if (btn3.text.equals("3")) {
                 return@setOnClickListener
             }
-            enter_text.setText(button3.text.toString())
+            enter_text.setText(btn3.text.toString())
         }
-        val button4 = findViewById(R.id.btn4) as Button
-        button4.setOnClickListener {
-            if (button4.text.equals("4")) {
+        btn4.setOnClickListener {
+            if (btn4.text.equals("4")) {
                 return@setOnClickListener
             }
-            enter_text.setText(button4.text.toString())
+            enter_text.setText(btn4.text.toString())
         }
-        val button5 = findViewById(R.id.btn5) as Button
-        button5.setOnClickListener {
-            if (button5.text.equals("5")) {
+        btn5.setOnClickListener {
+            if (btn5.text.equals("5")) {
                 return@setOnClickListener
             }
-            enter_text.setText(button5.text.toString())
+            enter_text.setText(btn5.text.toString())
         }
         createConnectBtn(database)
-
     }
 
     private fun readFromDataBase(db: adressAndTimeDatabase) { ///getting all the urls from the data base and putting them in list
@@ -99,11 +91,6 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun putButtonsCorrect(list: List<adressAndTime>) {
         withContext(Main) {
-            val btn1 = findViewById(R.id.btn1) as Button
-            val btn2 = findViewById(R.id.btn2) as Button
-            val btn3 = findViewById(R.id.btn3) as Button
-            val btn4 = findViewById(R.id.btn4) as Button
-            val btn5 = findViewById(R.id.btn5) as Button
             if (list.size == 1) {
                 btn1.text = list[0].adress
             } else if (list.size == 2) {
